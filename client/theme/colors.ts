@@ -25,6 +25,7 @@ export const colorPalette = {
 
   // Utility
   danger: '#ff5c5c',
+  logoBlue: '#2bd9ff',
   subtleGrid: '#032332',
   glow: 'rgba(0,230,255,0.16)',
   outline: 'rgba(0,230,255,0.08)',

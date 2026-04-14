@@ -25,7 +25,7 @@ export default function LaunchScreen() {
   const [date, setDate] = useState(new Date());
   const [missionName, setMissionName] = useState('');
   const [rocketType, setRocketType] = useState('Explorer IS1');
-  const [destination, setDestination] = useState('Kepler-62f');
+  const [destination, setDestination] = useState<string>('');
 
   const theme = useTheme();
   const playClick = useSoundEffect('click');
@@ -44,7 +44,9 @@ export default function LaunchScreen() {
       const [planets] = await Promise.all([
         api.httpGetPlanets(),
       ]);
-      setPlanets(planets);
+      if (planets) {
+        setPlanets(planets.map((p: any) => p.kepler_name));
+      }
 
       setLoading(false);
     } catch (err: any) {
@@ -255,8 +257,7 @@ export default function LaunchScreen() {
           paddingVertical: theme.space.sm,
         }}
       >
-        This site and is not affiliated with NASA or SpaceX in any way. For
-        educational purposes only.
+        This is not an official app and is not affiliated with NASA or SpaceX in any way. For educational purposes only.
       </Text>
     </SafeAreaView>
   );

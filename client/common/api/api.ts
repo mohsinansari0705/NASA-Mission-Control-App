@@ -1,5 +1,6 @@
 import { http } from './http';
 import { ApiConfig } from './config';
+import type { Planet, Launch } from '../types/types';
 
 export class Api {
   postEvent?: (event: string, payload?: any) => void;
@@ -8,7 +9,7 @@ export class Api {
     this.postEvent = postEvent;
   }
 
-  async httpGetPlanets(): Promise<any> {
+  async httpGetPlanets(): Promise<Planet[]> {
     try {
       const response = await http.get('/planets');
       return response.data;
@@ -18,9 +19,9 @@ export class Api {
     }
   }
 
-  async httpGetLaunches(): Promise<any> {
+  async httpGetLaunches(): Promise<Launch[]> {
     try {
-      const response = await http.get(ApiConfig.baseUrl + '/launches');
+      const response = await http.get('/launches');
       return response.data;
     } catch (e) {
       console.error('Error fetching launches:', e);
@@ -28,23 +29,23 @@ export class Api {
     }
   }
 
-  async httpSubmitLaunch(): Promise<any> {
+  async httpSubmitLaunch(): Promise<Launch> {
     try {
-      const response = await http.post(ApiConfig.baseUrl + '/launches');
+      const response = await http.post('/launches');
       return response.data;
     } catch (e) {
       console.error('Error submitting launch:', e);
-      return [];
+      return {} as Launch;
     }
   }
 
-  async httpAbortLaunch(): Promise<any> {
+  async httpAbortLaunch(): Promise<Launch> {
     try {
-      const response = await http.post(ApiConfig.baseUrl + '/launches/abort');
+      const response = await http.post('/launches/abort');
       return response.data;
     } catch (e) {
       console.error('Error aborting launch:', e);
-      return [];
+      return {} as Launch;
     }
   }
 }

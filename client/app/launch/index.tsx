@@ -34,7 +34,7 @@ export default function LaunchScreen() {
   const playSuccess = useSoundEffect('success');
 
 
-  const fetch = async () => {
+  const fetchPlanets = async () => {
     setError(null);
     setLoading(true);
 
@@ -56,15 +56,20 @@ export default function LaunchScreen() {
   };
 
   useEffect(() => {
-    fetch();
+    fetchPlanets();
   }, []);
 
   if (loading) {
     return (
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size={theme.space.xl * 1.25} color={theme.colors.heading} />
+      <SafeAreaView
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      >
+        <ActivityIndicator
+          size={theme.space.xl * 1.25}
+          color={theme.colors.heading}
+        />
       </SafeAreaView>
-    )
+    );
   }
 
   const showDatePicker = (currentMode: 'date' | 'time') => {

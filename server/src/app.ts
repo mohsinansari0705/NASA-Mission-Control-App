@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import express from 'express';
 
 import { planetRouter } from './routes/planets/planets.routes';
-
+import { launchesRouter } from './routes/launches/launches.routes';
 
 export const app = express();
 
@@ -20,3 +20,4 @@ app.use(
 
 app.use(express.json());
 app.use(planetRouter);
+app.use(launchesRouter);

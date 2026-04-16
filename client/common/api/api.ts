@@ -9,6 +9,7 @@ export class Api {
     this.postEvent = postEvent;
   }
 
+  // Load planets and return as JSON
   async httpGetPlanets(): Promise<Planet[]> {
     try {
       const response = await http.get('/planets');
@@ -19,6 +20,7 @@ export class Api {
     }
   }
 
+  // Load launches, sort by flight number and return as JSON
   async httpGetLaunches(): Promise<Launch[]> {
     try {
       const response = await http.get('/launches');
@@ -29,6 +31,7 @@ export class Api {
     }
   }
 
+  // Submit given launch date to launch system
   async httpSubmitLaunch(): Promise<Launch> {
     try {
       const response = await http.post('/launches');
@@ -39,6 +42,7 @@ export class Api {
     }
   }
 
+  // Delete launch with given ID
   async httpAbortLaunch(): Promise<Launch> {
     try {
       const response = await http.post('/launches/abort');

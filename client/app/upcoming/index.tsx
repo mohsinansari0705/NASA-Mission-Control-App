@@ -6,6 +6,7 @@ import { Launch } from '@/common/types/types';
 import { useTheme } from '@/theme/ThemeContext';
 import { AppContext } from '@/common/context/AppContext';
 import { useSoundEffect } from '@/common/sound/useSound';
+import { TableComponent } from '@/components/TableComponent';
 import { LaunchContainer } from '@/components/LaunchContainer';
 
 
@@ -62,7 +63,7 @@ export default function UpcomingScreen() {
           <Text
             style={{
               color: theme.colors.heading,
-              fontSize: theme.fontSize.lg * 1.1,
+              fontSize: theme.fontSize.lg * 1.05,
               fontFamily: theme.fonts.ubuntu,
             }}
           >
@@ -73,12 +74,28 @@ export default function UpcomingScreen() {
           <Text
             style={{
               color: theme.colors.heading,
-              fontSize: theme.fontSize.lg * 1.1,
+              fontSize: theme.fontSize.lg * 1.05,
               fontFamily: theme.fonts.ubuntu,
             }}
           >
             Warning! Clicking on the ✖ aborts the mission.
           </Text>
+
+          <TableComponent
+            data={launches}
+            columns={[
+              { key: 'abortButton', title: ' ', flex: 1 },
+              { key: 'flightNumber', title: 'No.', flex: 3 },
+              { key: 'launchDate', title: 'Date', flex: 3 },
+              { key: 'mission', title: 'Mission', flex: 4 },
+              { key: 'rocket', title: 'Rocket', flex: 3 },
+              { key: 'destination', title: 'Destination', flex: 4 },
+            ]}
+            // onAbort={(l) => {
+            //   playAbort();
+            //   setLaunches((prev) => prev.filter((x) => x.flightNumber !== l.flightNumber));
+            // }}
+          />
         </View>
       </LaunchContainer>
     </SafeAreaView>

@@ -6,6 +6,7 @@ import { Launch } from '@/common/types/types';
 import { useTheme } from '@/theme/ThemeContext';
 import { AppContext } from '@/common/context/AppContext';
 import { useSoundEffect } from '@/common/sound/useSound';
+import { TableComponent } from '@/components/TableComponent';
 import { LaunchContainer } from '@/components/LaunchContainer';
 
 
@@ -27,7 +28,6 @@ export default function HistoryScreen() {
 
       const [launches] = await Promise.all([api.httpGetLaunches()]);
       setLaunches(launches);
-      console.log('Fetched launches:', launches);
 
       setLoading(false);
     } catch (err: any) {
@@ -66,6 +66,18 @@ export default function HistoryScreen() {
             History of Mission launches including SpaceX launches starting from
             the year 2006.
           </Text>
+
+          <TableComponent
+            data={launches}
+            columns={[
+              { key: 'status', title: ' ', flex: 1 },
+              { key: 'flightNumber', title: 'No.', flex: 3 },
+              { key: 'launchDate', title: 'Date', flex: 3 },
+              { key: 'mission', title: 'Mission', flex: 4 },
+              { key: 'rocket', title: 'Rocket', flex: 3 },
+              { key: 'customers', title: 'Customers', flex: 4 },
+            ]}
+          />
         </View>
       </LaunchContainer>
     </SafeAreaView>

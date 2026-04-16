@@ -260,6 +260,7 @@ export default function LaunchScreen() {
           fontFamily: theme.fonts.sairaStencil,
           fontSize: theme.fontSize.sm,
           paddingVertical: theme.space.sm,
+          paddingHorizontal: theme.space.md,
         }}
       >
         This is not an official app and is not affiliated with NASA or SpaceX in any way. For educational purposes only.

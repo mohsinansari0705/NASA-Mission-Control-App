@@ -17,7 +17,6 @@ export default function UpcomingScreen() {
   const [error, setError] = useState<string | null>(null);
 
   const theme = useTheme();
-  const playClick = useSoundEffect('click');
   const playAbort = useSoundEffect('abort');
   const playWarning = useSoundEffect('warning');
 
@@ -82,6 +81,7 @@ export default function UpcomingScreen() {
           </Text>
 
           <TableComponent
+            type='upcoming'
             data={launches}
             columns={[
               { key: 'abortButton', title: ' ', flex: 1 },
@@ -91,10 +91,16 @@ export default function UpcomingScreen() {
               { key: 'rocket', title: 'Rocket', flex: 3 },
               { key: 'destination', title: 'Destination', flex: 4 },
             ]}
-            // onAbort={(l) => {
-            //   playAbort();
-            //   setLaunches((prev) => prev.filter((x) => x.flightNumber !== l.flightNumber));
-            // }}
+            onAbort={async (launchId: string) => {
+              const response = await appContext.context.api.httpAbortLaunch(launchId);
+              const success = response.ok;
+
+              if (success) {
+                playAbort();
+              } else {
+                playWarning();
+              }
+            }}
           />
         </View>
       </LaunchContainer>

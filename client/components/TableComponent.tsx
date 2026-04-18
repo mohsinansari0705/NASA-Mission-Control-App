@@ -18,15 +18,15 @@ type Column = {
   flex?: number;
 };
 type TableComponentProps = {
+  type: 'upcoming' | 'history';
   data: Launch[];
   columns: Column[];
-  onAbort?: (item: Launch) => void;
+  onAbort?: (launchId: string) => void;
 };
 
-export const TableComponent = ({ data, columns, onAbort }: TableComponentProps) => {
+export const TableComponent = ({ type, data, columns, onAbort }: TableComponentProps) => {
   const theme = useTheme();
   const playClick = useSoundEffect('click');
-  const playAbort = useSoundEffect('abort');
 
   const formatDate = (v: any) => {
     const d = v instanceof Date ? v : new Date(v);
@@ -57,6 +57,8 @@ export const TableComponent = ({ data, columns, onAbort }: TableComponentProps) 
 
   const renderRow = useCallback(
     ({ item }: { item: Launch }) => {
+      if (type === 'upcoming' && item.upcoming === false) return null;
+      
       return (
         <TouchableOpacity
           onPress={playClick}
@@ -78,12 +80,12 @@ export const TableComponent = ({ data, columns, onAbort }: TableComponentProps) 
                   accessibilityLabel='Abort mission'
                   accessibilityRole='button'
                   onPress={() => {
-                    playAbort();
-                    Alert.alert('Abort mission', 'Are you sure you want to abort?', [
-                        { text: 'Cancel', style: 'cancel' },
-                        { text: 'Abort', style: 'destructive', onPress: () => onAbort && onAbort(item) },
-                      ]
-                    );
+                    onAbort && onAbort(item.flightNumber);
+                    // Alert.alert('Abort mission', 'Are you sure you want to abort?', [
+                    //     { text: 'Cancel', style: 'cancel' },
+                    //     { text: 'Abort', style: 'destructive', onPress: () => onAbort && onAbort(item.flightNumber) },
+                    //   ]
+                    // );
                   }}
                   style={{
                     flex: col.flex || 1,

@@ -2,6 +2,10 @@ import type { Launch } from '../types/types';
 
 export const launches: Launch[] = [];
 
+export const existsLaunchWithId = (launchId: string) => {
+  return launches.some((launch) => launch.flightNumber === launchId);
+};
+
 export const getLaunches = () => {
   return launches;
 };
@@ -27,4 +31,17 @@ export const addLaunch = (launch: Partial<Launch>) => {
   newLaunch.success = true;
 
   launches.push(newLaunch as Launch);
+};
+
+export const abortLaunchWithId = (launchId: string) => {
+  const launch = launches.find((l) => l.flightNumber === launchId);
+
+  if (!launch) {
+    return;
+  } else {
+    launch.upcoming = false;
+    launch.success = false;
+  }
+
+  return launch;
 };

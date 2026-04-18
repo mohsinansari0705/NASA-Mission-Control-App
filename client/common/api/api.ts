@@ -31,25 +31,25 @@ export class Api {
     }
   }
 
-  // Submit given launch date to launch system
-  async httpSubmitLaunch(): Promise<Launch> {
+  // Submit given launch to launch system
+  async httpSubmitLaunch(launch: Partial<Launch>): Promise<Launch | any> {
     try {
-      const response = await http.post('/launches');
+      const response = await http.post('/launches', launch);
       return response.data;
     } catch (e) {
       console.error('Error submitting launch:', e);
-      return {} as Launch;
+      return { ok: false };
     }
   }
 
-  // Delete launch with given ID
-  async httpAbortLaunch(): Promise<Launch> {
+  // Abort launch with given ID
+  async httpAbortLaunch(launchId: string): Promise<Launch | any> {
     try {
-      const response = await http.post('/launches/abort');
+      const response = await http.put(`/launches/${launchId}`);
       return response.data;
     } catch (e) {
       console.error('Error aborting launch:', e);
-      return {} as Launch;
+      return { ok: false };
     }
   }
 }

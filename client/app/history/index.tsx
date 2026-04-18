@@ -68,6 +68,7 @@ export default function HistoryScreen() {
           </Text>
 
           <TableComponent
+            type='history'
             data={launches}
             columns={[
               { key: 'status', title: ' ', flex: 1 },

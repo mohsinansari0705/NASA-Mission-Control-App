@@ -5,7 +5,6 @@
   "main": "index.ts",
   "scripts": {
     "install-client": "npm install --prefix client",
-    "install": "npm install && npm run install-client",
 
     "dev": "tsx watch index.ts",
     "build": "tsc -p tsconfig.json",
